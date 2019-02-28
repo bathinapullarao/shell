@@ -1,13 +1,19 @@
+
 #!/bin/bash
-HOST="dev-gcm-db31 dev-gcm-db33 dev-gcm-db41 dev-gcm-db43 dev-gcm-db51 dev-gcm-db53"
-SSH="~/.ssh/dev_gcmchef01.pem"
+Sub="Warning : Disk error"
+#sending mail to
+to="Kannan.Vairamani@emeriocorp.com,Vajrala.Saisharma@emeriocorp.com,Bathina.Pullarao@emeriocorp.com"
+CURRENT=$(df / | grep / | awk '{ print $5}' | sed 's/%//g')
+disc=$(df -h)
+THRESHOLD1=90
+if [[ "$CURRENT" -gt "$THRESHOLD1" ]]; then
+echo    "Hi Infra Team,
 
-for i in ${HOST}
-do
-  echo "==== Disc Capacity for ${i} ============"
-  ssh -i ${SSH} dev_gcmchef01@${i} "df -h"
-  echo
-  echo
-done
+**********************************************Disk Utilization  Alert****************************************
+Running out of space / on server $(hostname), $(date), Disk utilization is: $CURRENT%
 
-exit 0
+
+
+$disc
+*************************************************************************************************************" | mail -s "$Sub" $to
+fi

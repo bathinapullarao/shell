@@ -2,7 +2,7 @@
 #!/bin/bash
 Sub="Warning : Disk error"
 #sending mail to
-to="Kannan.Vairamani@emeriocorp.com,Vajrala.Saisharma@emeriocorp.com,Bathina.Pullarao@emeriocorp.com"
+to="Kannan.Vairamani@corp.com,Bathina.Pullarao@corp.com"
 CURRENT=$(df / | grep / | awk '{ print $5}' | sed 's/%//g')
 disc=$(df -h)
 THRESHOLD1=90
